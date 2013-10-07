@@ -10,6 +10,7 @@ from Queue import Empty, Full
 import signal
 import sys
 import traceback
+import time
 
 import boto
 
@@ -162,7 +163,7 @@ class ManagerWorker(object):
     def sleep(self):
         try:
             while True:
-                pass
+                time.sleep(0.1)
         except KeyboardInterrupt:
             print('\n')
             print('Graceful shutdown...')
