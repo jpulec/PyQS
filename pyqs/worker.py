@@ -99,18 +99,23 @@ class ProcessWorker(BaseWorker):
 
         task = getattr(task_module, task_name)
         try:
+            logger.info(
+                "Attempting task %s with args: %s and kwargs: %s",
+                full_task_path,
+                repr(args),
+                repr(kwargs),
+            )
             task(*args, **kwargs)
         except Exception:
-            logger.error(
+            logger.exception(
                 "Task %s raised error: with args: %s and kwargs: %s: %s",
                 full_task_path,
                 args,
                 kwargs,
-                traceback.format_exc(),
             )
         else:
             logger.info(
-                "Processing task %s with args: %s and kwargs: %s",
+                "Processed task %s with args: %s and kwargs: %s",
                 full_task_path,
                 repr(args),
                 repr(kwargs),
